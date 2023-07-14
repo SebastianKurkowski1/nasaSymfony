@@ -5,15 +5,24 @@ controllers:
   type: attribute
 
 blog_list:
-  path: /blog
+  path: /blog/{page}
   controller: App\Controller\BlogController::list
+  requirements:
+    page: '\d+'
+  defaults:
+    page: 1
+
+blog_show:
+  path: /blog/{slug}
+  controller: App\Controller\BlogController::show
 
 api_post_show:
-  path: /api/posts/{id}
+  path: /api/posts/add/{id}
   controller: App\Controller\BlogApiController::show
   methods: GET|HEAD
+  condition: "params['id'] > 5"
 
 api_post_edit:
-  path: /api/posts/{id}
+  path: /api/posts/edit/{id}
   controller: App\Controller\BlogApiController::edit
   methods: PUT
